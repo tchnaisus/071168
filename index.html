@@ -7,66 +7,52 @@
     <title>Love Letter - ค๊อปเตอร์ & ปาล์ม</title>
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="icon" href="https://scontent-bkk1-1.xx.fbcdn.net/v/t39.30808-6/656211723_2375698916284068_4991449610173414429_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeGxOEWNXR32TD0k5NTiUKI5xKYMUDSZ_JbEpgxQNJn8lsEG9nHWgk-pzKNyNLNgvDXQ2TTp4DyXnzi8jvKylanR&_nc_ohc=E2S4bhT0rIkQ7kNvwG3qcyO&_nc_oc=AdpjygIM030P7zN5nx94D4VLCX2MSD4p-KkejDiSuYQlFf3A2huToKoWixXrXdmE7E0&_nc_zt=23&_nc_ht=scontent-bkk1-1.xx&_nc_gid=mi47WwpywUH_1sgxm9DlQw&_nc_ss=7b2a8&oh=00_Af6HTN5-q8Iy3dQtGQSMJ-NR-1Rnn-I3X_Jle24prLOm4w&oe=6A00C789">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <script src="/_sdk/element_sdk.js"></script>
     <style>
         * {
             font-family: 'Sarabun', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+            background: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
+            margin: 0;
         }
 
         #app {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            background: #ffffff;
             text-align: center;
         }
 
+        /* แอนิเมชั่นการลอยแบบคลีนๆ */
         .envelope {
             position: relative;
             width: 360px;
             height: 240px;
             cursor: pointer;
-            animation: envelopeFloat 4s ease-in-out infinite;
             margin: 0 auto 30px;
+            animation: envelopeFloat 4s ease-in-out infinite;
         }
 
         @keyframes envelopeFloat {
-
-            0%,
-            100% {
-                transform: translateY(0px) rotate(0deg);
-                filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.1));
-            }
-
-            50% {
-                transform: translateY(-10px) rotate(2deg);
-                filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
-            }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
         .envelope-body {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: #fdfcfb;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
+            background: #ffffff;
+            border: 1px solid #eeeeee;
+            border-radius: 8px;
             z-index: 1;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
         .envelope-flap {
@@ -75,9 +61,9 @@
             left: 0;
             width: 100%;
             height: 50%;
-            background: #f5f5f5;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px 5px 0 0;
+            background: #fcfcfc;
+            border: 1px solid #eeeeee;
+            border-radius: 8px 8px 0 0;
             transform-origin: top center;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 3;
@@ -89,64 +75,65 @@
             z-index: 0;
         }
 
+        /* ตัว Card จดหมาย: มีพื้นหลังขาวและขอบบางๆ แต่ไม่มีเงา */
         .letter {
             position: absolute;
-            top: 20px;
+            top: 10px;
             left: 50%;
-            transform: translateX(-50%) translateY(0) scale(0.9);
-            width: 320px;
-            background: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            padding: 30px;
+            transform: translateX(-50%) scale(0.9);
+            width: 330px;
+            background: #ffffff; /* กลับมามีพื้นหลังแผ่นกระดาษ */
+            border: 1px solid #eeeeee; /* ขอบบางๆ ให้ดูคลีน */
+            border-radius: 8px;
+            padding: 25px;
             z-index: 2;
             opacity: 0;
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
+        /* เมื่อเปิดซอง ให้ Card ลอยสูงขึ้น */
         .envelope.opened .letter {
             opacity: 1;
-            transform: translateX(-50%) translateY(-150px) scale(1);
+            transform: translateX(-50%) translateY(-170px) scale(1);
         }
 
         .couple-photo-section {
             display: flex;
             justify-content: center;
-            margin-bottom: 15px;
         }
 
         .couple-photo {
-            width: 150px;
-            height: 150px;
+            width: 140px;
+            height: 140px;
             object-fit: cover;
             border-radius: 50%;
-            border: 5px solid #fff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #fcfcfc;
         }
 
         .letter-top-line,
         .letter-bottom-line {
-            height: 2px;
-            background: linear-gradient(90deg, #fce4ec, #ffe082, #fce4ec);
-            margin: 10px 0;
+            height: 1px;
+            background: #f5f5f5;
+            width: 100%;
         }
 
         #message-text {
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.6;
-            color: #555;
+            color: #666;
+            margin: 5px 0;
         }
 
         #signature-text {
-            font-weight: bold;
+            font-weight: 600;
             color: #333;
         }
 
         #hint {
-            color: #888;
+            color: #cccccc;
             font-size: 14px;
         }
     </style>
@@ -155,21 +142,20 @@
 <body>
     <div id="app">
         <h1 class="text-3xl font-bold text-gray-800 mb-2">ที่รักของเค้า</h1>
-        <p class="text-sm text-gray-600 mb-8">จาก <span id="sender-display">ค๊อปเตอร์</span> ถึง <span
+        <p class="text-sm text-gray-600 mb-10">จาก <span id="sender-display">ค๊อปเตอร์</span> ถึง <span
                 id="receiver-display">ปาล์ม</span></p>
 
         <div id="envelope" class="envelope" onclick="toggleEnvelope()">
             <div class="letter">
                 <div class="letter-top-line"></div>
                 <div class="couple-photo-section">
-                    <img id="couple-photo" class="couple-photo"
-                        src="https://scontent-bkk1-1.xx.fbcdn.net/v/t39.30808-6/656211723_2375698916284068_4991449610173414429_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeGxOEWNXR32TD0k5NTiUKI5xKYMUDSZ_JbEpgxQNJn8lsEG9nHWgk-pzKNyNLNgvDXQ2TTp4DyXnzi8jvKylanR&_nc_ohc=E2S4bhT0rIkQ7kNvwG3qcyO&_nc_oc=AdpjygIM030P7zN5nx94D4VLCX2MSD4p-KkejDiSuYQlFf3A2huToKoWixXrXdmE7E0&_nc_zt=23&_nc_ht=scontent-bkk1-1.xx&_nc_gid=mi47WwpywUH_1sgxm9DlQw&_nc_ss=7b2a8&oh=00_Af6HTN5-q8Iy3dQtGQSMJ-NR-1Rnn-I3X_Jle24prLOm4w&oe=6A00C789"
-                        alt="รูปคู่">
+                    <img id="couple-photo" class="couple-photo" src="รูปคู่.png" alt="รูปคู่">
                 </div>
                 <p id="message-text">เค้าขอบคุณเธอที่อยู่ข้างเค้า เสมอมา <br> เค้ารักเธอมากๆเลยนะ ไอ้อ้วน 🩷 6M</p>
                 <div class="letter-bottom-line"></div>
                 <p id="signature-text">ค๊อปเตอร์</p>
             </div>
+            
             <div class="envelope-body"></div>
             <div class="envelope-flap"></div>
         </div>
