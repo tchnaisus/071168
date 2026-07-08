@@ -1,184 +1,301 @@
 <!DOCTYPE html>
-<html lang="th" class="h-full">
-
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Letter - ค๊อปเตอร์ & ปาล์ม</title>
-    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <title>บันทึกความตกลงร่วมกัน - สัญญารัก</title>
+    <!-- นำเข้า Google Fonts รวมถึงฟอนต์ลายมือลายเซ็นหวัดพริ้วไหว -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,400;1,600&family=Alex+Brush&family=Charm:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --bg-color: #fcfbfa;
+            --card-bg: #ffffff;
+            --text-main: #2d3142;
+            --text-muted: #4f5d75;
+            --accent: #d81159;
+            --accent-light: #ffb3c6;
+            --border-color: #e2e8f0;
+        }
+
         * {
-            font-family: 'Sarabun', sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background: #ffffff;
+            font-family: 'Noto Sans Thai', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
-            margin: 0;
         }
 
-        #app {
-            background: #ffffff;
-            text-align: center;
-        }
-
-        /* แอนิเมชั่นการลอยแบบคลีนๆ */
-        .envelope {
-            position: relative;
-            width: 360px;
-            height: 240px;
-            cursor: pointer;
-            margin: 0 auto 30px;
-            animation: envelopeFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes envelopeFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .envelope-body {
-            position: absolute;
+        .contract-container {
+            background-color: var(--card-bg);
+            max-width: 680px;
             width: 100%;
-            height: 100%;
-            background: #ffffff;
-            border: 1px solid #eeeeee;
-            border-radius: 8px;
-            z-index: 1;
+            padding: 60px 50px;
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            position: relative;
+            overflow: hidden;
         }
 
-        .envelope-flap {
+        .contract-container::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 50%;
-            background: #fcfcfc;
-            border: 1px solid #eeeeee;
-            border-radius: 8px 8px 0 0;
-            transform-origin: top center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 3;
-            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-light), var(--accent), var(--accent-light));
         }
 
-        .envelope.opened .envelope-flap {
-            transform: rotateX(180deg);
-            z-index: 0;
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
-        /* ตัว Card จดหมาย: มีพื้นหลังขาวและขอบบางๆ แต่ไม่มีเงา */
-        .letter {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%) scale(0.9);
-            width: 330px;
-            background: #ffffff; /* กลับมามีพื้นหลังแผ่นกระดาษ */
-            border: 1px solid #eeeeee; /* ขอบบางๆ ให้ดูคลีน */
-            border-radius: 8px;
-            padding: 25px;
-            z-index: 2;
-            opacity: 0;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        .title-en {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--accent);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .title-th {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1e293b;
+            letter-spacing: -0.5px;
+        }
+
+        .meta-section {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+            font-size: 0.95rem;
+        }
+
+        .meta-row {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            margin-bottom: 10px;
         }
 
-        /* เมื่อเปิดซอง ให้ Card ลอยสูงขึ้น */
-        .envelope.opened .letter {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-170px) scale(1);
+        .meta-label {
+            color: var(--text-muted);
+            width: 80px;
+            flex-shrink: 0;
+            font-weight: 500;
         }
 
-        .couple-photo-section {
+        .meta-value {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .content-body {
+            font-size: 1.05rem;
+            color: #334155;
+            text-align: justify;
+        }
+
+        .paragraph {
+            margin-bottom: 24px;
+            text-indent: 36px;
+        }
+
+        .clause-highlight {
+            background-color: #fff5f7;
+            border-left: 3px solid var(--accent);
+            padding: 18px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 32px 0;
+            font-weight: 500;
+            color: #991b1b;
+            text-indent: 0;
+        }
+
+        .statement-end {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-top: 40px;
+            margin-bottom: 48px;
+            font-style: italic;
+        }
+
+        .date-display {
+            text-align: center;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 48px;
+            font-size: 1rem;
+        }
+
+        /* โครงสร้างพื้นที่ลายเซ็นจำลอง */
+        .signatures-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .signature-block {
+            text-align: center;
+            position: relative;
+        }
+
+        .signature-wrap {
+            position: relative;
+            height: 60px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: center;
+            align-items: flex-end;
         }
 
-        .couple-photo {
-            width: 140px;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid #fcfcfc;
+        /* ตกแต่งฟอนต์ให้ลาดเอียงและพริ้วไหวเหมือนน้ำหมึกจริง */
+        .simulated-signature {
+            position: absolute;
+            bottom: 8px;
+            transform: rotate(-3deg);
+            opacity: 0.9;
+            user-select: none;
+        }
+        
+        .simulated-signature.male {
+            font-family: 'Charm', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e3a8a; /* ใช้โทนน้ำหมึกสีน้ำเงินเข้มสำหรับคุณธีรกล */
         }
 
-        .letter-top-line,
-        .letter-bottom-line {
-            height: 1px;
-            background: #f5f5f5;
-            width: 100%;
+        .simulated-signature.female {
+            font-family: 'Alex Brush', cursive;
+            font-size: 2.3rem;
+            bottom: 0px;
+            color: #030712; /* ใช้โทนน้ำหมึกสีดำธรรมชาติสำหรับคุณพิชามญช์ */
         }
 
-        #message-text {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #666;
-            margin: 5px 0;
+        .signature-line {
+            width: 80%;
+            border-bottom: 1px dashed #cbd5e1;
+            position: absolute;
+            bottom: 0;
+            left: 10%;
         }
 
-        #signature-text {
-            font-weight: 600;
-            color: #333;
+        .signature-name {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 500;
+            margin-top: 8px;
         }
 
-        #hint {
-            color: #cccccc;
-            font-size: 14px;
+        .signature-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 20px 12px;
+            }
+            .contract-container {
+                padding: 40px 24px;
+            }
+            .signatures-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .title-th {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
-
 <body>
-    <div id="app">
-        <h1 class="text-3xl font-bold text-gray-800 mb-2">ที่รักของเค้า</h1>
-        <p class="text-sm text-gray-600 mb-10">จาก <span id="sender-display">ค๊อปเตอร์</span> ถึง <span
-                id="receiver-display">ปาล์ม</span></p>
 
-        <div id="envelope" class="envelope" onclick="toggleEnvelope()">
-            <div class="letter">
-                <div class="letter-top-line"></div>
-                <div class="couple-photo-section">
-                    <img id="couple-photo" class="couple-photo" src="รูปคู่.png" alt="รูปคู่">
-                </div>
-                <p id="message-text">เค้าขอบคุณเธอที่อยู่ข้างเค้า เสมอมา <br> เค้ารักเธอมากๆเลยนะ ไอ้อ้วน 🩷 6M</p>
-                <div class="letter-bottom-line"></div>
-                <p id="signature-text">ค๊อปเตอร์</p>
-            </div>
-            
-            <div class="envelope-body"></div>
-            <div class="envelope-flap"></div>
+    <div class="contract-container">
+        <div class="header">
+            <div class="title-en">Mutual Commitment Agreement</div>
+            <div class="title-th">บันทึกความตกลงร่วมกัน</div>
         </div>
 
-        <p id="hint">แตะเพื่อเปิดอ่าน</p>
+        <div class="meta-section">
+            <div class="meta-row">
+                <div class="meta-label">เรียน:</div>
+                <div class="meta-value">นาย ธีรกล ชื่นชม & นางสาว พิชามญช์ โภคะ</div>
+            </div>
+            <div class="meta-row">
+                <div class="meta-label">หัวเรื่อง:</div>
+                <div class="meta-value" style="color: var(--accent); font-weight: 600;">เราจะไม่เลิกกัน</div>
+            </div>
+            <div class="meta-row">
+                <div class="meta-label">ถึงบุคคล:</div>
+                <div class="meta-value">เราทั้งคู่</div>
+            </div>
+        </div>
+
+        <div class="content-body">
+            <div class="paragraph">
+                เนื่องด้วยสถานการณ์ตอนนี้เรามีปัญหากันทั้งคู่ติดต่อกันจนเราเหนื่อยและเสียใจทั้งคู่ เราทั้งสองคนตกลงว่าจะจับมือกันเดินต่อไป ไม่ว่าจะเจอปัญหา ความเข้าใจผิด การทะเลาะกัน ความผิดพลาด หรืออุปสรรคใด ๆ เราจะเลือกพูดคุย รับฟัง และแก้ไขปัญหาร่วมกัน ไม่ใช้การเลิกราเป็นทางออกของเรื่องเหล่านั้น
+            </div>
+
+            <div class="paragraph">
+                ไม่ว่าใครจะทำผิด เราจะให้โอกาสกันในการอธิบาย ปรับปรุง และแก้ไขตัวเอง พร้อมให้อภัยกันเมื่อสามารถทำได้ และจะไม่ปล่อยมือกันเพียงเพราะช่วงเวลาที่ยากลำบากและจะไม่รู้สึกเปลี่ยนไปหรือรักกันน้อยลง
+            </div>
+
+            <div class="clause-highlight">
+                อย่างไรก็ตาม หากมีการนอกใจ คบซ้อน หรือมีความสัมพันธ์เชิงชู้สาวกับบุคคลอื่น สัญญาฉบับนี้ถือเป็นอันสิ้นสุดลงทันที
+            </div>
+
+            <div class="statement-end">
+                "...สัญญาฉบับนี้เกิดขึ้นจากความรัก ความจริงใจ และความเต็มใจของเราทั้งสองคน..."
+            </div>
+        </div>
+
+        <div class="date-display">
+            วันที่ 25 มิถุนายน พ.ศ. 2569
+        </div>
+
+        <!-- ส่วนของลายเซ็นจำลองคู่ -->
+        <div class="signatures-grid">
+            <div class="signature-block">
+                <div class="signature-wrap">
+                    <!-- ลายเซ็นจำลองฝ่ายชาย -->
+                    <div class="simulated-signature male">Teerakon.C</div>
+                    <div class="signature-line"></div>
+                </div>
+                <div class="signature-name">(นาย ธีรกล ชื่นชม)</div>
+                <div class="signature-title">ฝ่ายชาย</div>
+            </div>
+            
+            <div class="signature-block">
+                <div class="signature-wrap">
+                    <!-- ลายเซ็นจำลองฝ่ายหญิง -->
+                    <div class="simulated-signature female">Pichamon.P</div>
+                    <div class="signature-line"></div>
+                </div>
+                <div class="signature-name">(นางสาว พิชามญช์ โภคะ)</div>
+                <div class="signature-title">ฝ่ายหญิง</div>
+            </div>
+        </div>
     </div>
 
-    <script>
-        const envelope = document.getElementById('envelope');
-        const hint = document.getElementById('hint');
-        let isOpened = false;
-
-        function toggleEnvelope() {
-            isOpened = !isOpened;
-            if (isOpened) {
-                envelope.classList.add('opened');
-                hint.textContent = 'ขอบคุณมากๆ อ้วนของเค้า';
-            } else {
-                envelope.classList.remove('opened');
-                hint.textContent = 'แตะเพื่อเปิดอ่าน';
-            }
-        }
-    </script>
 </body>
-
 </html>
