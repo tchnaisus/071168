@@ -3,299 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>บันทึกความตกลงร่วมกัน - สัญญารัก</title>
-    <!-- นำเข้า Google Fonts รวมถึงฟอนต์ลายมือลายเซ็นหวัดพริ้วไหว -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,400;1,600&family=Alex+Brush&family=Charm:wght@400;700&display=swap" rel="stylesheet">
+    <title>Happy Anniversary ❤️</title>
+    <!-- โหลด Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --bg-color: #fcfbfa;
-            --card-bg: #ffffff;
-            --text-main: #2d3142;
-            --text-muted: #4f5d75;
-            --accent: #d81159;
-            --accent-light: #ffb3c6;
-            --border-color: #e2e8f0;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: 'Noto Sans Thai', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.8;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Prompt', sans-serif;
         }
 
-        .contract-container {
-            background-color: var(--card-bg);
-            max-width: 680px;
-            width: 100%;
-            padding: 60px 50px;
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+        /* หัวใจตรงกลางแบบนุ่มนวล Minimal */
+        .heart-shape {
             position: relative;
-            overflow: hidden;
+            width: 100px;
+            height: 100px;
+            background-color: #f43f5e;
+            transform: rotate(-45deg);
+            animation: pulse-soft 2s infinite ease-in-out;
         }
-
-        .contract-container::before {
-            content: '';
+        .heart-shape::before,
+        .heart-shape::after {
+            content: "";
             position: absolute;
-            top: 0;
+            width: 100px;
+            height: 100px;
+            background-color: #f43f5e;
+            border-radius: 50%;
+        }
+        .heart-shape::before {
+            top: -50px;
             left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-light), var(--accent), var(--accent-light));
+        }
+        .heart-shape::after {
+            left: 50px;
+            top: 0;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1) rotate(-45deg); }
+            50% { transform: scale(1.05) rotate(-45deg); }
         }
 
-        .title-en {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--accent);
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
+        /* CSS Animation สำหรับ Modal เปิด/ปิด แบบสมูท */
+        .modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
         }
-
-        .title-th {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #1e293b;
-            letter-spacing: -0.5px;
-        }
-
-        .meta-section {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 24px;
-            margin-bottom: 32px;
-            font-size: 0.95rem;
-        }
-
-        .meta-row {
-            display: flex;
-            margin-bottom: 10px;
-        }
-
-        .meta-label {
-            color: var(--text-muted);
-            width: 80px;
-            flex-shrink: 0;
-            font-weight: 500;
-        }
-
-        .meta-value {
-            color: var(--text-main);
-            font-weight: 500;
-        }
-
-        .content-body {
-            font-size: 1.05rem;
-            color: #334155;
-            text-align: justify;
-        }
-
-        .paragraph {
-            margin-bottom: 24px;
-            text-indent: 36px;
-        }
-
-        .clause-highlight {
-            background-color: #fff5f7;
-            border-left: 3px solid var(--accent);
-            padding: 18px 24px;
-            border-radius: 0 12px 12px 0;
-            margin: 32px 0;
-            font-weight: 500;
-            color: #991b1b;
-            text-indent: 0;
-        }
-
-        .statement-end {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 1rem;
-            margin-top: 40px;
-            margin-bottom: 48px;
-            font-style: italic;
-        }
-
-        .date-display {
-            text-align: center;
-            font-weight: 500;
-            color: var(--text-main);
-            margin-bottom: 48px;
-            font-size: 1rem;
-        }
-
-        /* โครงสร้างพื้นที่ลายเซ็นจำลอง */
-        .signatures-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 20px;
-        }
-
-        .signature-block {
-            text-align: center;
-            position: relative;
-        }
-
-        .signature-wrap {
-            position: relative;
-            height: 60px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-        }
-
-        /* ตกแต่งฟอนต์ให้ลาดเอียงและพริ้วไหวเหมือนน้ำหมึกจริง */
-        .simulated-signature {
-            position: absolute;
-            bottom: 8px;
-            transform: rotate(-3deg);
-            opacity: 0.9;
-            user-select: none;
+        .modal-content {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-in-out;
         }
         
-        .simulated-signature.male {
-            font-family: 'Charm', cursive;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #1e3a8a; /* ใช้โทนน้ำหมึกสีน้ำเงินเข้มสำหรับคุณธีรกล */
+        .modal-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal-hidden .modal-content {
+            transform: scale(0.9) translateY(10px);
+            opacity: 0;
         }
 
-        .simulated-signature.female {
-            font-family: 'Alex Brush', cursive;
-            font-size: 2.3rem;
-            bottom: 0px;
-            color: #030712; /* ใช้โทนน้ำหมึกสีดำธรรมชาติสำหรับคุณพิชามญช์ */
+        .modal-visible {
+            opacity: 1;
+            pointer-events: auto;
         }
-
-        .signature-line {
-            width: 80%;
-            border-bottom: 1px dashed #cbd5e1;
-            position: absolute;
-            bottom: 0;
-            left: 10%;
-        }
-
-        .signature-name {
-            font-size: 0.95rem;
-            color: var(--text-main);
-            font-weight: 500;
-            margin-top: 8px;
-        }
-
-        .signature-title {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        @media (max-width: 640px) {
-            body {
-                padding: 20px 12px;
-            }
-            .contract-container {
-                padding: 40px 24px;
-            }
-            .signatures-grid {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-            .title-th {
-                font-size: 1.5rem;
-            }
+        .modal-visible .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between items-center p-6 relative overflow-x-hidden">
 
-    <div class="contract-container">
-        <div class="header">
-            <div class="title-en">Mutual Commitment Agreement</div>
-            <div class="title-th">บันทึกความตกลงร่วมกัน</div>
+    <!-- Background Pattern จางๆ สไตล์มินิมอล -->
+    <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] -z-10 opacity-60"></div>
+
+    <!-- ส่วนหัว (Header) -->
+    <header class="text-center mt-6 z-10 space-y-2">
+        <span class="text-xs uppercase tracking-widest text-rose-500 font-medium px-3 py-1 bg-rose-50 rounded-full border border-rose-100">Our Special Moment</span>
+        <h1 class="text-3xl sm:text-4xl font-semibold text-slate-800 tracking-tight">Happy Anniversary</h1>
+        <p class="text-slate-400 text-sm font-light">รวม 7 ช่วงเวลาที่น่าจดจำของเราสองคน</p>
+    </header>
+
+    <!-- พื้นที่จัดวางรูปหัวใจ (Heart Interactive Area) -->
+    <main class="relative w-[340px] h-[340px] sm:w-[460px] sm:h-[460px] flex justify-center items-center my-auto">
+        
+        <!-- หัวใจตรงกลาง -->
+        <div class="heart-shape shadow-lg shadow-rose-200/50 flex items-center justify-center">
+            <span class="transform rotate-[45deg] text-white font-medium text-lg tracking-wider z-20 text-center drop-shadow-sm">
+                ALWAYS
+            </span>
         </div>
 
-        <div class="meta-section">
-            <div class="meta-row">
-                <div class="meta-label">เรียน:</div>
-                <div class="meta-value">นาย ธีรกล ชื่นชม & นางสาว พิชามญช์ โภคะ</div>
-            </div>
-            <div class="meta-row">
-                <div class="meta-label">หัวเรื่อง:</div>
-                <div class="meta-value" style="color: var(--accent); font-weight: 600;">เราจะไม่เลิกกัน</div>
-            </div>
-            <div class="meta-row">
-                <div class="meta-label">ถึงบุคคล:</div>
-                <div class="meta-value">เราทั้งคู่</div>
-            </div>
-        </div>
+        <!-- รูปภาพ 7 รูปที่จัดวางด้วย JS -->
+        <div id="photo-heart-container" class="absolute inset-0 w-full h-full"></div>
+    </main>
 
-        <div class="content-body">
-            <div class="paragraph">
-                เนื่องด้วยสถานการณ์ตอนนี้เรามีปัญหากันทั้งคู่ติดต่อกันจนเราเหนื่อยและเสียใจทั้งคู่ เราทั้งสองคนตกลงว่าจะจับมือกันเดินต่อไป ไม่ว่าจะเจอปัญหา ความเข้าใจผิด การทะเลาะกัน ความผิดพลาด หรืออุปสรรคใด ๆ เราจะเลือกพูดคุย รับฟัง และแก้ไขปัญหาร่วมกัน ไม่ใช้การเลิกราเป็นทางออกของเรื่องเหล่านั้น
-            </div>
+    <!-- ปุ่มส่งความรัก -->
+    <footer class="mb-6 z-10">
+        <button onclick="triggerFloatingHearts()" class="bg-slate-900 hover:bg-rose-500 text-white font-normal text-sm py-3 px-7 rounded-full shadow-md hover:shadow-lg hover:shadow-rose-200 transition-all duration-300 transform active:scale-95 flex items-center gap-2">
+            <span>ส่งความรัก</span>
+            <span class="text-rose-400">❤️</span>
+        </button>
+    </footer>
 
-            <div class="paragraph">
-                ไม่ว่าใครจะทำผิด เราจะให้โอกาสกันในการอธิบาย ปรับปรุง และแก้ไขตัวเอง พร้อมให้อภัยกันเมื่อสามารถทำได้ และจะไม่ปล่อยมือกันเพียงเพราะช่วงเวลาที่ยากลำบากและจะไม่รู้สึกเปลี่ยนไปหรือรักกันน้อยลง
-            </div>
-
-            <div class="clause-highlight">
-                อย่างไรก็ตาม หากมีการนอกใจ คบซ้อน หรือมีความสัมพันธ์เชิงชู้สาวกับบุคคลอื่น สัญญาฉบับนี้ถือเป็นอันสิ้นสุดลงทันที
-            </div>
-
-            <div class="statement-end">
-                "...สัญญาฉบับนี้เกิดขึ้นจากความรัก ความจริงใจ และความเต็มใจของเราทั้งสองคน..."
-            </div>
-        </div>
-
-        <div class="date-display">
-            วันที่ 25 มิถุนายน พ.ศ. 2569
-        </div>
-
-        <!-- ส่วนของลายเซ็นจำลองคู่ -->
-        <div class="signatures-grid">
-            <div class="signature-block">
-                <div class="signature-wrap">
-                    <!-- ลายเซ็นจำลองฝ่ายชาย -->
-                    <div class="simulated-signature male">Teerakon.C</div>
-                    <div class="signature-line"></div>
-                </div>
-                <div class="signature-name">(นาย ธีรกล ชื่นชม)</div>
-                <div class="signature-title">ฝ่ายชาย</div>
-            </div>
+    <!-- Smooth Image Modal (หน้าต่างแสดงรูปภาพสมูทๆ) -->
+    <div id="imageModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop modal-hidden bg-slate-900/40 backdrop-blur-md" onclick="closeModal()">
+        <div class="bg-white rounded-3xl p-4 sm:p-5 max-w-sm sm:max-w-md w-full shadow-2xl border border-slate-100 modal-content relative" onclick="event.stopPropagation()">
+            <!-- ปุ่มปิด -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                ✕
+            </button>
             
-            <div class="signature-block">
-                <div class="signature-wrap">
-                    <!-- ลายเซ็นจำลองฝ่ายหญิง -->
-                    <div class="simulated-signature female">Pichamon.P</div>
-                    <div class="signature-line"></div>
-                </div>
-                <div class="signature-name">(นางสาว พิชามญช์ โภคะ)</div>
-                <div class="signature-title">ฝ่ายหญิง</div>
+            <!-- รูปภาพขนาดใหญ่ -->
+            <div class="overflow-hidden rounded-2xl aspect-square bg-slate-100 mb-4">
+                <img id="modalImage" src="" alt="Enlarged photo" class="w-full h-full object-cover">
+            </div>
+
+            <!-- ข้อความกำกับรูปภาพ -->
+            <div class="text-center px-2 pb-2">
+                <h3 id="modalTitle" class="text-lg font-medium text-slate-800">ความทรงจำของเรา</h3>
+                <p id="modalCaption" class="text-xs text-slate-400 mt-1">กดพื้นที่ว่างภายนอกเพื่อปิด</p>
             </div>
         </div>
     </div>
 
+    <script>
+        // 1. กำหนดชื่อไฟล์รูปภาพเป็น 1.jpg ถึง 7.jpg พร้อมข้อความกำกับ
+        const memoryData = [
+            { url: '1.jpg', title: 'จุดเริ่มต้นของเรา', caption: 'รอยยิ้มแรกที่ทำให้ตกหลุมรัก' },
+            { url: '2.webp', title: 'ทริปแรกด้วยกัน', caption: 'การเดินทางที่มีเธอข้างๆ' },
+            { url: '3.jpg', title: 'วันที่แสนพิเศษ', caption: 'ไม่ว่าทำอะไรก็มีความสุขเสมอ' },
+            { url: '4.webp', title: 'วันสบายๆ ของเรา', caption: 'แค่อยู่ด้วยกันก็พอแล้ว' },
+            { url: '5.jpg', title: 'ภาพถ่ายโปรด', caption: 'รูปนี้เธอสวยที่สุดเลย' },
+            { url: '6.jpg', title: 'ร้านอร่อยร้านโปรด', caption: 'กินอะไรก็อร่อยเมื่อมีเธอ' },
+            { url: '7.png', title: 'ครบรอบเดือนนี้', caption: 'ขอบคุณที่เดินจับมือกันมาถึงวันนี้นะ' }
+        ];
+
+        // 2. สมการรูปหัวใจ (Heart Curve Formula)
+        function getHeartPoint(t) {
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+            return { x, y };
+        }
+
+        const container = document.getElementById('photo-heart-container');
+        const totalItems = memoryData.length;
+
+        // 3. วาดวงกลมรูปภาพ 7 รูป
+        memoryData.forEach((data, index) => {
+            const t = (index / totalItems) * 2 * Math.PI;
+            const point = getHeartPoint(t);
+
+            const isSmallScreen = window.innerWidth < 640;
+            const scale = isSmallScreen ? 9.5 : 13; 
+
+            const xPos = point.x * scale;
+            const yPos = point.y * scale;
+
+            const imgWrapper = document.createElement('div');
+            imgWrapper.className = `absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
+                                    w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white p-1
+                                    shadow-md hover:shadow-xl ring-1 ring-slate-100
+                                    cursor-pointer transition-all duration-300 ease-out
+                                    hover:scale-125 hover:z-30 hover:ring-rose-300`;
+            
+            imgWrapper.style.transform = `translate(calc(-50% + ${xPos}px), calc(-50% + ${yPos}px))`;
+
+            imgWrapper.innerHTML = `
+                <div class="w-full h-full rounded-full overflow-hidden">
+                    <img src="${data.url}" alt="${data.title}" class="w-full h-full object-cover">
+                </div>
+            `;
+
+            // เพิ่ม Event คลิกเพื่อเปิด Modal สมูทๆ
+            imgWrapper.addEventListener('click', () => openModal(data));
+
+            container.appendChild(imgWrapper);
+        });
+
+        // 4. ฟังก์ชันควบคุม Modal แบบ Smooth
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCaption = document.getElementById('modalCaption');
+
+        function openModal(data) {
+            modalImg.src = data.url;
+            modalTitle.textContent = data.title;
+            modalCaption.textContent = data.caption;
+            
+            modal.classList.remove('modal-hidden');
+            modal.classList.add('modal-visible');
+        }
+
+        function closeModal() {
+            modal.classList.remove('modal-visible');
+            modal.classList.add('modal-hidden');
+        }
+
+        // ปิด Modal เมื่อกดปุ่ม ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // 5. เอฟเฟกต์หัวใจลอยนุ่มนวล
+        function triggerFloatingHearts() {
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.innerText = '🤍';
+                heart.className = 'fixed text-xl pointer-events-none z-50 transition-all duration-1000 ease-out';
+                heart.style.left = (Math.random() * 80 + 10) + 'vw';
+                heart.style.top = '100vh';
+                heart.style.opacity = '0.8';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.style.transform = `translateY(-${Math.random() * 60 + 30}vh) scale(${Math.random() * 0.8 + 0.6})`;
+                    heart.style.opacity = '0';
+                }, 50);
+
+                setTimeout(() => heart.remove(), 1050);
+            }
+        }
+    </script>
 </body>
 </html>
